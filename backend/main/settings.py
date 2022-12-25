@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication.apps.AuthenticationConfig',
     'corsheaders',
-    'cars.apps.CarsConfig'  # This app is for example use only
 ]
 
 MIDDLEWARE = [
@@ -56,7 +55,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-ROOT_URLCONF = 'drf_jwt_backend.urls'
+ROOT_URLCONF = 'main.urls'
 
 TEMPLATES = [
     {
@@ -74,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'drf_jwt_backend.wsgi.application'
+WSGI_APPLICATION = 'main.wsgi.application'
 
 
 # Password validation
@@ -152,6 +151,6 @@ SIMPLE_JWT = {
 }
 
 try:
-    from drf_jwt_backend.local_settings import *
+    from main.local_settings import *
 except ImportError:
     pass
