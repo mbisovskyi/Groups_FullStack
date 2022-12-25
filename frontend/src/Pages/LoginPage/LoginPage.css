@@ -1,3 +1,19 @@
-.error {
-  color: red;
+.loginpage-container {
+  width: 80vw;
+  margin: auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  margin: auto;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.form label,
+input {
+  margin: 0.5rem 0;
+  width: 100%;
 }
