@@ -1,0 +1,27 @@
+.group-container {
+  width: 80vw;
+  margin: auto;
+  margin-bottom: 2rem;
+}
+
+.group-container > h2,
+button {
+  text-align: center;
+}
+
+.row {
+  height: 2rem;
+  padding: 0.2rem;
+  margin: 0.5rem 0;
+  border: 1px solid black;
+}
+
+#addRowBtn {
+  display: block;
+  width: 5%;
+  margin: auto;
+}
+
+.inactive-html-element {
+  display: none;
+}
