@@ -1,11 +1,11 @@
 //Styles
 import "./GroupsPage.css";
 //Components
-import Group from "../../Components/Group/Group";
+import Group from "../../components/Group/Group";
 //Hooks
 import { useState } from "react";
 //Utils
-import arrayMethods from "../../Utils/arrayMethods";
+import arrayMethods from "../../utils/arrayMethods";
 
 const GroupsPage = () => {
   const groupsTimes = [

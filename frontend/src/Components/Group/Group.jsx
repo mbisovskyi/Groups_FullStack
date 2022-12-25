@@ -3,7 +3,7 @@ import "./Group.css";
 //Hooks
 import { useState } from "react";
 //Utils
-import arrayMethods from "../../Utils/arrayMethods";
+import arrayMethods from "../../utils/arrayMethods";
 
 const Group = ({ time }) => {
   const [groupData, setGroupData] = useState([]);
