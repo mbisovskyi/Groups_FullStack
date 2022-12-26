@@ -25,7 +25,7 @@ const GroupsPage = () => {
 
   return (
     <div className="groupspage-container">
-      <CreateGroup />
+      {user.is_owner ? <CreateGroup /> : null}
       {groupsData
         ? groupsData.map((group, index) => {
             return <Group key={index} group={group} groupNumber={index + 1} />;

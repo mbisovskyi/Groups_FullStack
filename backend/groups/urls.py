@@ -3,4 +3,5 @@ from groups import views
 
 urlpatterns = [
     path('', views.user_groups),
+    path('<int:group_id>', views.delete_group),
 ]
