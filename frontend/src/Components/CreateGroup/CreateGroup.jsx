@@ -9,6 +9,7 @@ const CreateGroup = () => {
   const [user, token] = useAuth();
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [date, setDate] = useState();
   const [maxRows, setMaxRows] = useState(5);
   const [modalFormElement, setModalFormElement] = useState();
 
@@ -28,6 +29,7 @@ const CreateGroup = () => {
       user_id: user.id,
       start_time: startTime,
       end_time: endTime,
+      date: date,
       max_rows: maxRows,
     };
     let response = await axios.post(
@@ -61,6 +63,12 @@ const CreateGroup = () => {
               type="time"
               required
               onChange={(event) => setEndTime(event.target.value)}
+            ></input>
+            <label value={date}>Date: </label>
+            <input
+              type="date"
+              required
+              onChange={(event) => setDate(event.target.value)}
             ></input>
             <label value={maxRows}>Maximum rows: </label>
             <input
