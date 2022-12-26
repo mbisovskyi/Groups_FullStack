@@ -25,7 +25,7 @@ const GroupsPage = () => {
       getCurrentDate();
       setCurrentDateGroups(
         response.data.filter((group) => {
-          return group.date == currentDate;
+          return group.date === currentDate;
         })
       );
     };
@@ -49,14 +49,14 @@ const GroupsPage = () => {
       {user.is_owner ? (
         <div>
           <CreateGroup />
-          {groupsData ? (
+          {groupsData.length !== 0 ? (
             groupsData.map((group, index) => {
               return (
                 <Group key={index} group={group} groupNumber={index + 1} />
               );
             })
           ) : (
-            <div></div>
+            <p>No active groups</p>
           )}
         </div>
       ) : (

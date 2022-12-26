@@ -2,8 +2,11 @@
 import "./Group.css";
 //Hooks
 import useAuth from "../../hooks/useAuth";
+import { useState, useEffect } from "react";
 //Utils
 import axios from "axios";
+//Components
+import GroupRow from "../GroupRow/GroupRow";
 
 const Group = ({ group, groupNumber }) => {
   const [user, token] = useAuth();
@@ -19,11 +22,13 @@ const Group = ({ group, groupNumber }) => {
     <div className="group-container">
       {group ? (
         <div>
+          <span>Scheduled on {group.date}</span>
           <h2>
             {groupNumber}. {group.start_time} - {group.end_time}
           </h2>
           <span>Group limit is {group.max_rows}</span>
           {user.is_owner ? <button onClick={removeGroup}>Remove</button> : null}
+          <GroupRow groupId={group.id} />
         </div>
       ) : null}
     </div>
