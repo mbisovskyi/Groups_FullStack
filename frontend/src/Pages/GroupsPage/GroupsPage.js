@@ -2,27 +2,35 @@
 import "./GroupsPage.css";
 //Components
 import Group from "../../components/Group/Group";
+import CreateGroup from "../../components/CreateGroup/CreateGroup";
 //Hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
 //Utils
-import arrayMethods from "../../utils/arrayMethods";
+import axios from "axios";
 
 const GroupsPage = () => {
-  const groupsTimes = [
-    "8:00am - 11:00am",
-    "11:00am - 3:00pm",
-    "3:00pm - 6:00pm",
-    "6:00pm - 9:00pm",
-  ];
-  const [groupNumbers] = useState(
-    arrayMethods.arrayRange(1, groupsTimes.length, 1)
-  );
+  const [user, token] = useAuth();
+  const [groupsData, setGroupsData] = useState([]);
+
+  useEffect(() => {
+    const fetchGroupsData = async () => {
+      let response = await axios.get("http://127.0.0.1:8000/api/groups/", {
+        headers: { Authorization: "Bearer " + token },
+      });
+      setGroupsData(response.data);
+    };
+    fetchGroupsData();
+  }, []);
 
   return (
     <div className="groupspage-container">
-      {groupNumbers.map((index) => {
-        return <Group key={index} time={groupsTimes[index - 1]} />;
-      })}
+      <CreateGroup />
+      {groupsData
+        ? groupsData.map((group, index) => {
+            return <Group key={index} group={group} groupNumber={index + 1} />;
+          })
+        : null}
     </div>
   );
 };

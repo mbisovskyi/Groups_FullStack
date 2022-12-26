@@ -1,3 +1,16 @@
 .groupspage-container {
   padding: 1rem;
 }
+
+.modal-form-container {
+  position: absolute;
+  width: 80vw;
+  height: 50vh;
+  left: 50%;
+  translate: -50%;
+  background-color: white;
+}
+
+.hidden {
+  display: none;
+}
