@@ -2,7 +2,7 @@
 import "./GroupsPage.css";
 //Components
 import Group from "../../components/Group/Group";
-import CreateGroup from "../../components/CreateGroup/CreateGroup";
+import FindGroup from "../../components/FindGroup/FindGroup";
 import AllGroups from "../../components/AllGroups/AllGroups";
 import TodayGroups from "../../components/TodayGroups/TodayGroups";
 //Hooks
@@ -15,7 +15,9 @@ const GroupsPage = () => {
   const [user, token] = useAuth();
   const [groupsData, setGroupsData] = useState([]);
   const [currentDateGroups, setCurrentDateGroups] = useState([]);
+  const [foundGroups, setFoundGroups] = useState([]);
   const [currentDate] = useState(getCurrentDate());
+  const [foundGroupsError, setFoundGroupsError] = useState(null);
 
   useEffect(() => {
     //>>>>>>>>>>>>>>>> Section to run all functions to fill out all state variables <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -53,10 +55,36 @@ const GroupsPage = () => {
 
   return (
     <div className="groupspage-container">
-      {user.is_owner ? (
-        <AllGroups groupsData={groupsData} />
+      <FindGroup
+        groupsData={groupsData}
+        setFoundGroups={setFoundGroups}
+        setFoundGroupsError={setFoundGroupsError}
+        currentDate={currentDate}
+      />
+      {foundGroups.length === 0 && foundGroupsError === null ? (
+        <div>
+          {user.is_owner ? (
+            <AllGroups groupsData={groupsData} />
+          ) : (
+            <TodayGroups groupsData={currentDateGroups} />
+          )}
+        </div>
       ) : (
-        <TodayGroups groupsData={currentDateGroups} />
+        <div>
+          {!foundGroupsError ? (
+            <div>
+              {foundGroups.map((group, index) => {
+                return (
+                  <Group key={index} group={group} groupNumber={index + 1} />
+                );
+              })}
+            </div>
+          ) : (
+            <div>
+              <p>{foundGroupsError}</p>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

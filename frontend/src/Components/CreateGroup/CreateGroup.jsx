@@ -23,7 +23,7 @@ const CreateGroup = () => {
       : modalFormElement.classList.add("hidden");
   }
 
-  async function handleSubmitForm(e) {
+  async function handleSubmitForm() {
     toggleModalForm();
     let newGroup = {
       user_id: user.id,
