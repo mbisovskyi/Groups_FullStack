@@ -25,7 +25,28 @@ const GroupRow = ({ groupId }) => {
     fetchRowsData();
   }, []);
 
-  return <div className="grouprow-container"></div>;
+  return (
+    <div className="grouprow-container">
+      {rowsData ? (
+        <div>
+          {rowsData.map((row, index) => {
+            return (
+              <div key={index} className="row-data-container">
+                <p className="row-customer">
+                  {index + 1}. Customer {row.first_name} {row.last_name}
+                </p>
+                <p className="row-address" style={{ whiteSpace: "pre-wrap" }}>
+                  {"   "} Address: {row.address}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div></div>
+      )}
+    </div>
+  );
 };
 
 export default GroupRow;
