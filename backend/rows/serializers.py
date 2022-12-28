@@ -4,5 +4,5 @@ from .models import Row
 class RowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Row
-        fields = ['id', 'first_name', 'last_name', 'address', 'group_id']
+        fields = ['id', 'first_name', 'last_name', 'phone', 'group', 'user_id']
         depth = 1

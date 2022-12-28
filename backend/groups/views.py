@@ -33,4 +33,11 @@ def patch_group_data(request, group_id):
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(status=status.HTTP_304_NOT_MODIFIED)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_active_groups(request):
+    if request.method == 'GET':
+        groups = Group.objects.filter(is_active = True)
+        serializer = GroupSerializer(groups, many=True)
+        return Response(serializer.data)
 
