@@ -12,7 +12,7 @@ from .serializers import GroupSerializer
 def user_groups(request):
     if request.method == 'GET':
         owner = User.objects.get(is_owner=True)
-        groups = Group.objects.filter(user_id=owner.id)
+        groups = Group.objects.filter(user_id=owner.id, is_deleted=False)
         serializer = GroupSerializer(groups, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
@@ -22,12 +22,15 @@ def user_groups(request):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['DELETE'])
+@api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
-def delete_group(request, group_id):
-    if request.method == 'DELETE':
+def patch_group_data(request, group_id):
+    if request.method == 'PATCH':
         group = Group.objects.get(id = group_id)
-        group.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        serializer = GroupSerializer(group, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(status=status.HTTP_304_NOT_MODIFIED)
 
 

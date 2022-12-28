@@ -7,6 +7,8 @@ class Group(models.Model):
     end_time = models.TimeField(null=False)
     date = models.DateField(blank=True, null=False)
     max_rows = models.IntegerField(null=False)
+    is_active = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
 
 
     class Meta:
