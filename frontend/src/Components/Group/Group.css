@@ -1,27 +1,81 @@
 .group-container {
-  width: 80vw;
-  margin: auto;
+  width: 25rem;
   margin-bottom: 2rem;
+  padding: 1rem;
+  border: 3px solid rgba(40, 99, 143, 0.6);
+  border-radius: 10px;
 }
 
-.group-container > h2,
+.group-container h2,
 button {
   text-align: center;
 }
 
-.row {
-  height: 2rem;
-  padding: 0.2rem;
-  margin: 0.5rem 0;
-  border: 1px solid black;
+.group-date {
+  padding: 0.1rem 0.5rem;
+  background-color: rgba(40, 99, 143, 0.3);
+  color: #28638f;
+  border-radius: 3px;
 }
 
-#addRowBtn {
-  display: block;
-  width: 5%;
-  margin: auto;
+.group-info-container h2 {
+  color: #004b75;
 }
 
-.inactive-html-element {
-  display: none;
+.group-top-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.group-cotrollers {
+  margin: 0.3rem auto 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.left-controller {
+  text-align: center;
+  width: 40%;
+  padding: 0.2rem 1rem;
+  background-color: #004b75;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.right-controller {
+  text-align: center;
+  width: 40%;
+  padding: 0.2rem 1rem;
+  background-color: #004b75;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.mb-1rem {
+  margin-bottom: 1rem;
+}
+
+.mr-1rem {
+  margin-right: 15%;
+}
+
+.text-white {
+  padding: 0.3rem 1rem;
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+}
+
+.status-red {
+  background-color: rgba(231, 34, 34, 0.95);
+}
+
+.status-green {
+  background-color: rgba(73, 209, 73, 1);
+}
+
+.inline-block {
+  display: inline-block;
 }

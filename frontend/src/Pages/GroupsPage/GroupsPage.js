@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 //Utils
 import axios from "axios";
+import CreateGroup from "../../components/CreateGroup/CreateGroup";
 
 const GroupsPage = () => {
   const [user, token] = useAuth();
@@ -70,7 +71,8 @@ const GroupsPage = () => {
           )}
         </div>
       ) : (
-        <div>
+        <div className="foundgroups-container">
+          {user.is_owner ? <CreateGroup /> : null}
           {!foundGroupsError ? (
             <div>
               {foundGroups.map((group, index) => {
@@ -80,7 +82,7 @@ const GroupsPage = () => {
               })}
             </div>
           ) : (
-            <div>
+            <div className="group-container" style={{ marginTop: "1rem" }}>
               <p>{foundGroupsError}</p>
             </div>
           )}

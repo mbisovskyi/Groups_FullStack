@@ -44,6 +44,9 @@ const CreateGroup = () => {
 
   return (
     <div className="creategroup-container">
+      <button id="newGroupBtn" onClick={toggleModalForm}>
+        New Group
+      </button>
       <div className="modal-form-container hidden">
         <div>
           <button className="close-modal-form" onClick={toggleModalForm}>
@@ -80,7 +83,6 @@ const CreateGroup = () => {
           </form>
         </div>
       </div>
-      <button onClick={toggleModalForm}>New Group</button>
     </div>
   );
 };

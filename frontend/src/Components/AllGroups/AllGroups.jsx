@@ -8,13 +8,15 @@ const AllGroups = ({ groupsData }) => {
   return (
     <div className="allgroups-container">
       <CreateGroup />
-      {groupsData.length !== 0 ? (
-        groupsData.map((group, index) => {
-          return <Group key={index} group={group} groupNumber={index + 1} />;
-        })
-      ) : (
-        <p>No active groups</p>
-      )}
+      <div className="groups-container">
+        {groupsData.length !== 0 ? (
+          groupsData.map((group, index) => {
+            return <Group key={index} group={group} groupNumber={index + 1} />;
+          })
+        ) : (
+          <p style={{ color: "red" }}>No active groups!</p>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,5 +1,7 @@
 .groupspage-container {
   padding: 1rem;
+  width: 80vw;
+  margin: auto;
 }
 
 .modal-form-container {
@@ -13,4 +15,11 @@
 
 .hidden {
   display: none;
+}
+
+.foundgroups-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }

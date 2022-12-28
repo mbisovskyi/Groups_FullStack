@@ -8,10 +8,11 @@ import axios from "axios";
 //Components
 import GroupRow from "../GroupRow/GroupRow";
 
-const Group = ({ group, groupNumber, setFoundGroupsError }) => {
+const Group = ({ group }) => {
   const [user, token] = useAuth();
   const [toggleGroupStatusBtnText, setToggleGroupStatusBtnText] = useState("");
   const [groupStatusText, setGroupStatusText] = useState("");
+  const [groupLength, setGroupLength] = useState(0);
 
   useEffect(() => {
     checkActiveGroupStatus();
@@ -57,42 +58,72 @@ const Group = ({ group, groupNumber, setFoundGroupsError }) => {
   }
 
   return (
-    <div className="group-container">
+    <div className="group-container" style={{ marginTop: "1rem" }}>
       {group ? (
         <div>
           {user.is_owner ? (
             <div>
-              <p>{groupStatusText}</p>
-              <span>Scheduled on {group.date}</span>
-              <h2>
-                {groupNumber}. {group.start_time} - {group.end_time}
-              </h2>
-              <span>Group limit is {group.max_rows}</span>
-              <button onClick={removeGroup}>Remove</button>
-              <button
-                className="toggle-group-status"
-                onClick={toggleActiveGroupStatus}
-              >
-                {toggleGroupStatusBtnText}
-              </button>
+              <div>
+                <p className="mb-1rem group-top-container">
+                  {group.is_active ? (
+                    <span className="status-green text-white inline-block">
+                      {groupStatusText}
+                    </span>
+                  ) : (
+                    <span className="status-red text-white inline-block">
+                      {groupStatusText}
+                    </span>
+                  )}
+                  <span className="group-date block">{group.date}</span>
+                  <span className="inline-block">
+                    {groupLength} / {group.max_rows}
+                  </span>
+                </p>
+              </div>
+              <div className="group-info-container">
+                <h2>
+                  {group.start_time} - {group.end_time}
+                </h2>
+                <div className="group-cotrollers">
+                  <div className="left-controller">
+                    <button
+                      className="toggle-group-status"
+                      onClick={toggleActiveGroupStatus}
+                    >
+                      {toggleGroupStatusBtnText}
+                    </button>
+                  </div>
+                  <div className="right-controller">
+                    <button onClick={removeGroup}>Remove</button>
+                  </div>
+                </div>
+              </div>
+              <GroupRow groupId={group.id} setGroupLength={setGroupLength} />
             </div>
           ) : (
             <div>
               {group.is_active ? (
-                <div>
-                  <p>{groupStatusText}</p>
-                  <span>Scheduled on {group.date}</span>
+                <div className="group-info-container">
+                  <div>
+                    <p className="mb-1rem group-top-container">
+                      <span className="status-green text-white inline-block">
+                        {groupStatusText}
+                      </span>
+                      <span className="group-date block">{group.date}</span>
+                      <span className="inline-block">
+                        {groupLength} / {group.max_rows}
+                      </span>
+                    </p>
+                  </div>
                   <h2>
-                    {groupNumber}. {group.start_time} - {group.end_time}
+                    {group.start_time} - {group.end_time}
                   </h2>
-                  <span>Group limit is {group.max_rows}</span>
                 </div>
               ) : (
                 <p>No groups found!</p>
               )}
             </div>
           )}
-          <GroupRow groupId={group.id} />
         </div>
       ) : null}
     </div>

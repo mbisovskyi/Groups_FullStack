@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 //Utills
 import axios from "axios";
 
-const GroupRow = ({ groupId }) => {
+const GroupRow = ({ groupId, setGroupLength }) => {
   const [user, token] = useAuth();
   const [rowsData, setRowsData] = useState([]);
 
@@ -21,6 +21,7 @@ const GroupRow = ({ groupId }) => {
         }
       );
       setRowsData(response.data);
+      setGroupLength(response.data.length);
     };
     fetchRowsData();
   }, []);
