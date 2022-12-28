@@ -6,7 +6,6 @@ const FindGroup = (props) => {
     let date = event.target.value;
     try {
       let foundGroups = props.groupsData.filter((group) => {
-        console.log(group.date);
         return group.date === date;
       });
       if (foundGroups.length > 0) {
