@@ -6,10 +6,11 @@ import useAuth from "../../hooks/useAuth";
 import { useEffect } from "react";
 //Components
 import Group from "../../components/GroupsComponents/Group/Group";
+import CreateGroup from "../../components/CreateGroup/CreateGroup";
 
 const HomePage = () => {
   const [user, token] = useAuth();
-  const [groups, usersGroups, getGroupsData, getActiveGroups, removeGroup] =
+  const { groups, usersGroups, getGroupsData, getActiveGroups, removeGroup } =
     useGroups();
 
   useEffect(() => {
@@ -21,10 +22,12 @@ const HomePage = () => {
     <div className="homepage-container">
       {user.is_owner ? (
         <div>
+          <CreateGroup />
           {groups.map((group, index) => {
             return (
-              <div key={index} className="group-container">
-                <Group group={group} removeGroup={removeGroup} />
+              <div className="group-date-container" key={index}>
+                <h2>{group.date}</h2>
+                <Group group={group} />
               </div>
             );
           })}
@@ -35,7 +38,8 @@ const HomePage = () => {
             <div>
               {usersGroups.map((group, index) => {
                 return (
-                  <div key={index}>
+                  <div className="group-date-container" key={index}>
+                    <h2>{group.date}</h2>
                     <Group group={group} />
                   </div>
                 );

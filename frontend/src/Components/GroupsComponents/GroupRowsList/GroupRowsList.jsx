@@ -3,7 +3,6 @@ import "./GroupRowsList.css";
 //Components
 import RowData from "../RowData/RowData";
 //Hooks
-import useGroups from "../../../hooks/useGroups";
 import useAuth from "../../../hooks/useAuth";
 import { useState, useEffect } from "react";
 //Utills
@@ -32,20 +31,28 @@ const GroupRowsList = ({ groupId, setRowsQuantity }) => {
           {rows.map((row, index) => {
             if (user.is_owner) {
               return (
-                <div key={index}>
+                <div className="row-border" key={index}>
                   <RowData row={row} rowNumber={index + 1} />
                 </div>
               );
             } else {
               if (row.user_id === user.id) {
-                return <RowData key={index} row={row} rowNumber={index + 1} />;
+                return (
+                  <div className="row-border">
+                    <RowData key={index} row={row} rowNumber={index + 1} />
+                  </div>
+                );
               }
             }
           })}
         </div>
       ) : (
         <div>
-            {user.is_owner ? <div>No Data</div> : null}
+          {user.is_owner ? (
+            <div style={{ textAlign: "center" }}>
+              <p className="text-rows-empty">Empty</p>
+            </div>
+          ) : null}
         </div>
       )}
     </div>

@@ -1,8 +1,24 @@
 .homepage-container {
-  padding: 1rem;
+  padding: 1rem 0;
+}
+
+.homepage-container h2 {
+  display: inline;
+  text-align: center;
+  margin: 2rem 0 1rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  color: white;
+  background-color: rgba(40, 99, 143, 0.9);
 }
 
 .group-top-container {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.group-date-container {
+  text-align: center;
 }

@@ -29,7 +29,7 @@ const Group = ({ group }) => {
     window.location.reload();
   }
 
-  async function toggleActiveGroupStatus() {
+  async function toggleGroupStatus() {
     let activeBool = group.is_active;
     if (activeBool === true) {
       activeBool = false;

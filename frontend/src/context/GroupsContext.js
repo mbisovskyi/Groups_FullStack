@@ -38,12 +38,29 @@ export const GroupsProvider = ({ children }) => {
     console.log(`From groups context: ${response.data.length} active groups`);
   }
 
+  async function toggleGroupStatus(token, group) {
+    let activeBool = group.is_active;
+    if (activeBool === true) {
+      activeBool = false;
+    } else {
+      activeBool = true;
+    }
+    let body = {
+      is_active: activeBool,
+    };
+    await axios.patch(`http://127.0.0.1:8000/api/groups/${group.id}`, body, {
+      headers: { Authorization: "Bearer " + token },
+    });
+    window.location.reload();
+  }
+
   const contextData = {
     groups,
     usersGroups,
     getGroupsData,
     getActiveGroups,
     removeGroup,
+    toggleGroupStatus,
   };
 
   return (

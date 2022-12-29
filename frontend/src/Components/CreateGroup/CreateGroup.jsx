@@ -39,7 +39,7 @@ const CreateGroup = () => {
         headers: { Authorization: "Bearer " + token },
       }
     );
-    console.log(response.status);
+    console.log(`Status code: ${response.status}`);
   }
 
   return (
