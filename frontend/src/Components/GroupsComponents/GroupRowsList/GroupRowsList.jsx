@@ -8,43 +8,56 @@ import { useState, useEffect } from "react";
 //Utills
 import axios from "axios";
 
-const GroupRowsList = ({ groupId, setRowsQuantity }) => {
+const GroupRowsList = ({ groupId, rows }) => {
   const [user, token] = useAuth();
-  const [rows, setRows] = useState([]);
+  const [userRows, setUserRows] = useState([]);
 
   useEffect(() => {
-    async function getGroupRows() {
+    //User's rows only in the group
+    async function getUserRows() {
       let response = await axios.get(
-        `http://127.0.0.1:8000/api/rows/${groupId}`,
+        `http://127.0.0.1:8000/api/rows/${groupId}/users/${user.id}/`,
         { headers: { Authorization: "Bearer " + token } }
       );
-      setRows(response.data);
-      setRowsQuantity(response.data.length);
+      setUserRows(response.data);
     }
-    getGroupRows();
+
+    if (!user.is_owner) {
+      getUserRows();
+    }
   }, []);
 
   return (
     <div className="rows-list-container">
-      {rows.length > 0 ? (
+      {rows.length > 0 || userRows.length > 0 ? (
         <div>
-          {rows.map((row, index) => {
-            if (user.is_owner) {
-              return (
-                <div className="row-border" key={index}>
-                  <RowData row={row} rowNumber={index + 1} />
-                </div>
-              );
-            } else {
-              if (row.user_id === user.id) {
+          {user.is_owner ? (
+            <div name="all rows">
+              {rows.map((row, index) => {
                 return (
-                  <div className="row-border">
-                    <RowData key={index} row={row} rowNumber={index + 1} />
+                  <div className="row-border" key={index}>
+                    <p>
+                      {index + 1}. {row.first_name} {row.last_name}, phone:{" "}
+                      {row.phone}
+                    </p>
                   </div>
                 );
-              }
-            }
-          })}
+              })}
+            </div>
+          ) : (
+            <div name="user's rows">
+              {userRows.map((row, index) => {
+                return (
+                  <div className="row-border" key={index}>
+                    <p>
+                      {index + 1}. {row.first_name} {row.last_name}, phone:
+                      {row.phone}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       ) : (
         <div>

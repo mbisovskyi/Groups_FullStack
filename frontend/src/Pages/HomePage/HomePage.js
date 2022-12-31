@@ -10,12 +10,13 @@ import CreateGroup from "../../components/CreateGroup/CreateGroup";
 
 const HomePage = () => {
   const [user, token] = useAuth();
-  const { groups, usersGroups, getGroupsData, getActiveGroups, removeGroup } =
-    useGroups();
+  const { groups, usersGroups, getGroupsData, getActiveGroups } = useGroups();
 
   useEffect(() => {
     getGroupsData(token);
-    getActiveGroups(token);
+    if (!user.is_owner) {
+      getActiveGroups(token);
+    }
   }, []);
 
   return (
@@ -35,7 +36,7 @@ const HomePage = () => {
       ) : (
         <div>
           {usersGroups.length > 0 ? (
-            <div>
+            <div name="all active groups">
               {usersGroups.map((group, index) => {
                 return (
                   <div className="group-date-container" key={index}>

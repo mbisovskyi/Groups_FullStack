@@ -6,17 +6,24 @@ from .models import Row
 from .serializers import RowSerializer
 # Create your views here.
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def group_rows(request, group_id):
+def all_group_rows(request, group_id):
     if request.method == 'GET':
         rows = Row.objects.filter(group_id = group_id)
         serializer = RowSerializer(rows, many=True)
         return Response(serializer.data)
-    elif request.method == 'POST':
+
+@api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
+def user_rows(request, group_id, user_id):
+    if request.method == 'GET':
+        rows = Row.objects.filter(group_id = group_id, user_id = user_id)
+        serializer = RowSerializer(rows, many=True)
+        return Response(serializer.data)
+    if request.method == 'POST':
         serializer = RowSerializer(data = request.data)
         if serializer.is_valid():
-            serializer.save(group_id = group_id)
+            serializer.save(group_id = group_id, user_id = user_id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-

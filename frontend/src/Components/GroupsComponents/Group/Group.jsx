@@ -2,21 +2,37 @@
 import "./Group.css";
 //Hooks
 import { useState, useEffect } from "react";
-//Components
-import GroupRowsList from "../GroupRowsList/GroupRowsList";
 import useAuth from "../../../hooks/useAuth";
 import useGroups from "../../../hooks/useGroups";
+//Components
+import GroupRowsList from "../GroupRowsList/GroupRowsList";
+import NewRow from "../NewRow/NewRow";
+//Utills
+import axios from "axios";
 
 const Group = ({ group }) => {
   const [user, token] = useAuth();
   const { removeGroup, toggleGroupStatus } = useGroups();
+
+  const [rows, setRows] = useState([]);
   const [rowsQuantity, setRowsQuantity] = useState(0);
 
-  useEffect(() => {}, [group.is_active]);
+  useEffect(() => {
+    //All rows of the group
+    async function getGroupRows() {
+      let response = await axios.get(
+        `http://127.0.0.1:8000/api/rows/${group.id}`,
+        { headers: { Authorization: "Bearer " + token } }
+      );
+      setRows(response.data);
+      setRowsQuantity(response.data.length);
+    }
+    getGroupRows();
+  }, []);
 
   return (
     <div className="group-container">
-      <div className="group-top-container">
+      <header className="group-top-container">
         <div className="group-status-container">
           {group.is_active ? (
             <span className="group-status" style={{ color: "green" }}>
@@ -61,8 +77,19 @@ const Group = ({ group }) => {
             </button>
           </div>
         ) : null}
-      </div>
-      <GroupRowsList groupId={group.id} setRowsQuantity={setRowsQuantity} />
+      </header>
+      <section name="rows data container">
+        <GroupRowsList
+          groupId={group.id}
+          rowsQuantity={rowsQuantity}
+          rows={rows}
+        />
+        {!user.is_owner && rowsQuantity < group.max_rows ? (
+          <NewRow groupId={group.id} />
+        ) : (
+          <p>Full</p>
+        )}
+      </section>
     </div>
   );
 };

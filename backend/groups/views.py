@@ -40,4 +40,3 @@ def get_active_groups(request):
         groups = Group.objects.filter(is_active = True)
         serializer = GroupSerializer(groups, many=True)
         return Response(serializer.data)
-
