@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import "./Navbar.css";
 
@@ -9,26 +9,32 @@ const Navbar = () => {
   const navigate = useNavigate();
   return (
     <div className="navbar-container">
+      <div className="logo-container">
+        <p className="logo">
+          Balkan
+          <span className="logo-second-word">Market</span>
+        </p>
+      </div>
       {user ? (
-        <div className="navbar-items-container">
-          <button className="navbar-item" onClick={() => navigate("/")}>
-            Home
-          </button>
-          <button className="navbar-item" onClick={() => navigate("/groups")}>
-            Groups
-          </button>
+        <div style={{ fontSize: "1.2rem", color: "#004d73" }}>
+          Welcome,
+          <span id="username">{user.username}</span>
         </div>
       ) : null}
-      <div className="login-reg-btns-container">
-        {user ? (
+      {user ? (
+        <div className="navbar-items-container">
+          <button onClick={() => navigate("/")}>Home</button>
+          <button onClick={() => navigate("/reservations")}>
+            Reservations
+          </button>
           <button onClick={logoutUser}>Logout</button>
-        ) : (
-          <div style={{ display: "flex" }}>
-            <button onClick={() => navigate("/login")}>Login</button>
-            <button onClick={() => navigate("/register")}>Register</button>
-          </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="log-ger-btns-container">
+          <button onClick={() => navigate("/login")}>Login</button>
+          <button onClick={() => navigate("/register")}>Register</button>
+        </div>
+      )}
     </div>
   );
 };

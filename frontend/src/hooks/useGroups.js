@@ -5,6 +5,7 @@ const useGroups = () => {
   const {
     groups,
     usersGroups,
+    newGroup,
     getGroupsData,
     getActiveGroups,
     updateGroupData,
@@ -14,6 +15,7 @@ const useGroups = () => {
   return {
     groups,
     usersGroups,
+    newGroup,
     getGroupsData,
     getActiveGroups,
     updateGroupData,

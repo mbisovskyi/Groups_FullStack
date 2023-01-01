@@ -1,7 +1,6 @@
 import { createContext } from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
-import dateMethods from "../utils/dateMethods";
 
 const GroupsContext = createContext();
 
@@ -10,6 +9,16 @@ export default GroupsContext;
 export const GroupsProvider = ({ children }) => {
   const [groups, setGroups] = useState([]);
   const [usersGroups, setUsersGroups] = useState([]);
+
+  /**
+   * Sends a POST request to add a new group to the database
+   * @param body - object with key/value pairs
+   * @param token - user token*/
+  async function newGroup(body, token) {
+    await axios.post(`http://127.0.0.1:8000/api/groups/`, body, {
+      headers: { Authorization: "Bearer " + token },
+    });
+  }
 
   async function getGroupsData(token) {
     let response = await axios.get("http://127.0.0.1:8000/api/groups/", {
@@ -54,6 +63,7 @@ export const GroupsProvider = ({ children }) => {
   const contextData = {
     groups,
     usersGroups,
+    newGroup,
     getGroupsData,
     getActiveGroups,
     updateGroupData,
