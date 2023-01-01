@@ -7,6 +7,7 @@ const useGroups = () => {
     usersGroups,
     getGroupsData,
     getActiveGroups,
+    updateGroupData,
     removeGroup,
     toggleGroupStatus,
   } = useContext(GroupsContext);
@@ -15,6 +16,7 @@ const useGroups = () => {
     usersGroups,
     getGroupsData,
     getActiveGroups,
+    updateGroupData,
     removeGroup,
     toggleGroupStatus,
   };

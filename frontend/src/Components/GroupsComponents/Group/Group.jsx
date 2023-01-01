@@ -13,9 +13,7 @@ import axios from "axios";
 const Group = ({ group }) => {
   const [user, token] = useAuth();
   const { removeGroup, toggleGroupStatus } = useGroups();
-
   const [rows, setRows] = useState([]);
-  const [rowsQuantity, setRowsQuantity] = useState(0);
 
   useEffect(() => {
     //All rows of the group
@@ -25,10 +23,22 @@ const Group = ({ group }) => {
         { headers: { Authorization: "Bearer " + token } }
       );
       setRows(response.data);
-      setRowsQuantity(response.data.length);
     }
     getGroupRows();
   }, []);
+
+  function handleClick() {
+    let activeBool = group.is_active;
+    if (activeBool === true) {
+      activeBool = false;
+    } else {
+      activeBool = true;
+    }
+    let body = {
+      is_active: activeBool,
+    };
+    toggleGroupStatus(token, group, body);
+  }
 
   return (
     <div className="group-container">
@@ -48,15 +58,11 @@ const Group = ({ group }) => {
           {group.start_time} - {group.end_time}
         </div>
         <div className="rows-counter-container">
-          {rowsQuantity} / {group.max_rows}
+          {group.current_value} / {group.max_value}
         </div>
         {user.is_owner ? (
           <div className="group-controllers">
-            <button
-              onClick={() => {
-                toggleGroupStatus(token, group);
-              }}
-            >
+            <button onClick={handleClick}>
               {group.is_active ? (
                 <span style={{ color: "red" }}>Close</span>
               ) : (
@@ -78,17 +84,15 @@ const Group = ({ group }) => {
           </div>
         ) : null}
       </header>
-      <section name="rows data container">
-        <GroupRowsList
-          groupId={group.id}
-          rowsQuantity={rowsQuantity}
-          rows={rows}
-        />
-        {!user.is_owner && rowsQuantity < group.max_rows ? (
-          <NewRow groupId={group.id} />
+      <section>
+        {!user.is_owner && !(group.current_value >= group.max_value) ? (
+          <NewRow group={group} />
         ) : (
-          <p>Full</p>
+          <div>{user.is_owner ? null : <p className="tag-red">Full</p>}</div>
         )}
+      </section>
+      <section name="rows data section">
+        <GroupRowsList groupId={group.id} rows={rows} />
       </section>
     </div>
   );

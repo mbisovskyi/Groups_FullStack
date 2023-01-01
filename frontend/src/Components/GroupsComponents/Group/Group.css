@@ -22,3 +22,10 @@
 .group-status {
   font-size: 1.2rem;
 }
+
+.tag-red {
+  background-color: rgba(223, 39, 63, 0.8);
+  color: white;
+  width: 50px;
+  margin: 0 auto 0.5rem;
+}

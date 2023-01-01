@@ -1,7 +1,5 @@
 //Styling
 import "./GroupRowsList.css";
-//Components
-import RowData from "../RowData/RowData";
 //Hooks
 import useAuth from "../../../hooks/useAuth";
 import { useState, useEffect } from "react";
@@ -40,6 +38,16 @@ const GroupRowsList = ({ groupId, rows }) => {
                       {index + 1}. {row.first_name} {row.last_name}, phone:{" "}
                       {row.phone}
                     </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "left",
+                      }}
+                    >
+                      <p className="product-row">Lambs: {row.lambs_quantity}</p>
+                      <p className="product-row">Pigs: {row.pigs_quantity}</p>
+                      <p className="product-row">Bread: {row.bread_quantity}</p>
+                    </div>
                   </div>
                 );
               })}
@@ -53,6 +61,16 @@ const GroupRowsList = ({ groupId, rows }) => {
                       {index + 1}. {row.first_name} {row.last_name}, phone:
                       {row.phone}
                     </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "left",
+                      }}
+                    >
+                      <p className="product-row">Lambs: {row.lambs_quantity}</p>
+                      <p className="product-row">Pigs: {row.pigs_quantity}</p>
+                      <p className="product-row">Bread: {row.bread_quantity}</p>
+                    </div>
                   </div>
                 );
               })}

@@ -6,7 +6,8 @@ class Group(models.Model):
     start_time = models.TimeField(null=False)
     end_time = models.TimeField(null=False)
     date = models.DateField(blank=True, null=False)
-    max_rows = models.IntegerField(null=False)
+    max_value = models.DecimalField(null=False, max_digits=3, decimal_places=1, default=0.0)
+    current_value = models.DecimalField(null=False, max_digits=3, decimal_places=1, default=0.0)
     is_active = models.BooleanField(default=False)
     is_deleted = models.BooleanField(default=False)
 

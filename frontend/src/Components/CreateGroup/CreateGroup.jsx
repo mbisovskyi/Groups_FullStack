@@ -30,7 +30,8 @@ const CreateGroup = () => {
       start_time: startTime,
       end_time: endTime,
       date: date,
-      max_rows: maxRows,
+      max_value: maxRows,
+      current_value: 0,
     };
     let response = await axios.post(
       "http://127.0.0.1:8000/api/groups/",
@@ -76,7 +77,7 @@ const CreateGroup = () => {
             <label value={maxRows}>Maximum rows: </label>
             <input
               type="number"
-              defaultValue={5}
+              step={0.5}
               onChange={(event) => setMaxRows(event.target.value)}
             ></input>
             <button type="submit">Create</button>
