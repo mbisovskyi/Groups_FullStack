@@ -1,20 +1,19 @@
 //Styles
 import "./ListGroups.css";
 //Custom Hooks
-import useAuth from "../../hooks/useAuth";
 import useGroups from "../../hooks/useGroups";
-//Hooks
-import { useState, useEffect } from "react";
+//Components
+import Group from "../Group/Group";
 
 const ListGroups = () => {
   //Custom Hooks Variables
-  const [user, token] = useAuth();
   const { allGroups } = useGroups(); // >>>>> All Groups are located here! <<<<<<<
-  //State Variables
 
   return (
     <div className="listgroups-container">
-      <h3>ListGroups component</h3>
+      {allGroups.map((group, index) => {
+        return <Group data={{ group }} key={index} />;
+      })}
     </div>
   );
 };
