@@ -2,6 +2,7 @@
 import "./ReservationsPage.css";
 //Components
 import NewGroup from "../../components/NewGroup/NewGroup";
+import ListGroups from "../../components/ListGroups/ListGroups";
 //Hooks
 import useAuth from "../../hooks/useAuth";
 
@@ -13,6 +14,7 @@ const ReservationsPage = () => {
     <div className="reservationspage-container">
       <h2>Reservations Page</h2>
       {user.is_owner ? <NewGroup /> : null}
+      <ListGroups />
     </div>
   );
 };
