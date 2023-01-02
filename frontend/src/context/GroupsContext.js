@@ -1,14 +1,20 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 const GroupsContext = createContext();
 
 export default GroupsContext;
 
 export const GroupsProvider = ({ children }) => {
-  const [groups, setGroups] = useState([]);
-  const [usersGroups, setUsersGroups] = useState([]);
+  //State variables
+  const [user, token] = useAuth();
+  const [allGroups, setAllGroups] = useState([]);
+
+  useEffect(() => {
+    getAllGroups();
+  }, []);
 
   /**
    * Sends a POST request to add a new group to the database
@@ -20,12 +26,13 @@ export const GroupsProvider = ({ children }) => {
     });
   }
 
-  async function getGroupsData(token) {
+  /**
+   * Sends a GET request to receive all groups from the database and uses setter to catch data in the state variable*/
+  async function getAllGroups() {
     let response = await axios.get("http://127.0.0.1:8000/api/groups/", {
       headers: { Authorization: "Bearer " + token },
     });
-    setGroups(response.data);
-    console.log(`From groups context: ${response.data.length} groups`);
+    setAllGroups(response.data);
   }
 
   async function removeGroup(token, groupId) {
@@ -43,7 +50,6 @@ export const GroupsProvider = ({ children }) => {
     let response = await axios.get("http://127.0.0.1:8000/api/groups/active/", {
       headers: { Authorization: "Bearer " + token },
     });
-    setUsersGroups(response.data);
     console.log(`From groups context: ${response.data.length} active groups`);
   }
 
@@ -61,10 +67,9 @@ export const GroupsProvider = ({ children }) => {
   }
 
   const contextData = {
-    groups,
-    usersGroups,
+    allGroups,
     newGroup,
-    getGroupsData,
+    getAllGroups,
     getActiveGroups,
     updateGroupData,
     removeGroup,
