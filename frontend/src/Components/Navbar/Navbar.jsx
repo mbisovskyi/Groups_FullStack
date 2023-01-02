@@ -17,7 +17,7 @@ const Navbar = () => {
       </div>
       {user ? (
         <div style={{ fontSize: "1.2rem", color: "#004d73" }}>
-          Welcome,
+          Welcome
           <span id="username">{user.username}</span>
         </div>
       ) : null}

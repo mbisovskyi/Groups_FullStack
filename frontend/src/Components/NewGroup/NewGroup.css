@@ -46,3 +46,7 @@
   background-color: #004d73;
   color: white;
 }
+
+.modal-form-container ::placeholder {
+  color: #004d7373;
+}

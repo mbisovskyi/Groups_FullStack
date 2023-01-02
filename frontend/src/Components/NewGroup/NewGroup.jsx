@@ -73,6 +73,7 @@ const NewGroup = () => {
           <label value={maxValue}>Max peaces: </label>
           <input
             required
+            placeholder="Maximum quantity of lambs available"
             type="number"
             onChange={(event) => setMaxValue(event.target.value)}
           />

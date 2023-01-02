@@ -9,9 +9,11 @@
 
 #username {
   margin-left: 0.5rem;
+  padding: 0.2rem 0.5rem;
   font-size: 1.5rem;
-  border-bottom: 1px solid #004d73;
   color: aliceblue;
+  background-color: #004d73cc;
+  border-radius: 10px;
 }
 
 .logo-container {
