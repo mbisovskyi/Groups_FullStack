@@ -27,23 +27,15 @@ export const GroupsProvider = ({ children }) => {
   }
 
   /**
-   * Sends a GET request to receive all groups from the database and uses setter to catch data in the state variable*/
+   * Sends a GET request to receive all groups from the database.
+   * @returns Promise
+   * @note using a setter (setAllGroups) to catch data in the state variable (allGroups).
+   * */
   async function getAllGroups() {
     let response = await axios.get("http://127.0.0.1:8000/api/groups/", {
       headers: { Authorization: "Bearer " + token },
     });
     setAllGroups(response.data);
-  }
-
-  async function removeGroup(token, groupId) {
-    let body = {
-      is_deleted: true,
-      is_active: false,
-    };
-    await axios.patch(`http://127.0.0.1:8000/api/groups/${groupId}`, body, {
-      headers: { Authorization: "Bearer " + token },
-    });
-    window.location.reload();
   }
 
   async function getActiveGroups(token) {
@@ -54,21 +46,13 @@ export const GroupsProvider = ({ children }) => {
   }
 
   /**
-   * Sends a PATCH request to update a single group property "is_active" with value being sent through parameters
+   * Sends a PATCH request to update a group data with an object { } passed in through parameters
    * @param {int} groupId - Group id to integrate in the url path.
-   * @param {boolean} status - Boolean value to assign to a Group property "is_active".
+   * @param {{}} object - object { } - type of Group
+   * @note PATCH request allows to update just a single property
    */
-  async function toggleGroupStatus(groupId, status) {
-    let body = {
-      is_active: status,
-    };
-    await axios.patch(`http://127.0.0.1:8000/api/groups/${groupId}`, body, {
-      headers: { Authorization: "Bearer " + token },
-    });
-  }
-
-  async function updateGroupData(token, groupId, body) {
-    await axios.patch(`http://127.0.0.1:8000/api/groups/${groupId}`, body, {
+  async function patchGroupData(groupId, object) {
+    await axios.patch(`http://127.0.0.1:8000/api/groups/${groupId}`, object, {
       headers: { Authorization: "Bearer " + token },
     });
   }
@@ -78,9 +62,7 @@ export const GroupsProvider = ({ children }) => {
     newGroup,
     getAllGroups,
     getActiveGroups,
-    updateGroupData,
-    removeGroup,
-    toggleGroupStatus,
+    patchGroupData,
   };
 
   return (
