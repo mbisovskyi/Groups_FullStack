@@ -12,7 +12,6 @@ const ReservationsPage = () => {
 
   return (
     <div className="reservationspage-container">
-      <h2>Reservations Page</h2>
       {user.is_owner ? <NewGroup /> : null}
       <ListGroups />
     </div>

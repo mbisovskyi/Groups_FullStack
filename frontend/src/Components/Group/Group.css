@@ -1,3 +1,35 @@
+.group-container {
+  margin: 2rem 0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.group-container header {
+  padding: 0.2rem 0;
+  background: linear-gradient(0.3turn, white, white, #004d73cc, white, white);
+}
+
 .group-container section {
+  padding: 0.5rem 15%;
   display: flex;
+  justify-content: space-evenly;
+}
+
+.group-container main {
+  padding: 0.5rem;
+  margin: 0 20%;
+  background: rgba(0, 77, 115, 0.1);
+  border-bottom: 1px solid #004d73cc;
+  border-radius: 5px;
+}
+
+.group-container footer {
+  padding: 0.5rem;
+  margin: 0 20%;
+}
+
+#group-date {
+  text-align: center;
+  color: aliceblue;
+  font-size: 1.1rem;
 }

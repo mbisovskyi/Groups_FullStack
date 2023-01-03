@@ -2,26 +2,12 @@
 import "./Group.css";
 //Custom Hooks
 import useAuth from "../../hooks/useAuth";
-import useGroups from "../../hooks/useGroups";
+//Components
+import GroupController from "../GroupController/GroupController";
 
 const Group = ({ data }) => {
   //Custom Hooks Variables
   const [user, token] = useAuth();
-  const { toggleGroupStatus } = useGroups();
-
-  //Functions
-  /**Handles click on group status toggle button
-   * @param booleanValue - current group status (Boolean)
-   */
-  function handleGroupStatusToggler(booleanValue) {
-    if (booleanValue) {
-      booleanValue = false;
-    } else {
-      booleanValue = true;
-    }
-    toggleGroupStatus(data.group.id, booleanValue);
-    window.location.reload();
-  }
 
   return (
     <div className="group-container">
@@ -46,21 +32,7 @@ const Group = ({ data }) => {
             {data.group.current_value} / {data.group.max_value}
           </span>
         </div>
-        <div className="group-controllers-container">
-          <button
-            id="toggle-group-status-btn"
-            onClick={() => {
-              handleGroupStatusToggler(data.group.is_active);
-            }}
-          >
-            {data.group.is_active ? (
-              <span style={{ color: "red" }}>Close</span>
-            ) : (
-              <span style={{ color: "green" }}>Open</span>
-            )}
-          </button>
-          <button id="delete-group-btn">X</button>
-        </div>
+        {user.is_owner ? <GroupController data={data} /> : null}
       </section>
       <main name="Group Data Section">Group Data Here</main>
       <footer name="Group Footer">Footer</footer>
