@@ -12,7 +12,7 @@ const ListGroups = () => {
   return (
     <div className="listgroups-container">
       {allGroups.map((group, index) => {
-        return <Group data={{ group }} key={index} />;
+        return <Group data={{ group, index }} key={index} />;
       })}
     </div>
   );

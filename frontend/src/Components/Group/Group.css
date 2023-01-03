@@ -29,7 +29,14 @@
 }
 
 #group-date {
+  position: relative;
   text-align: center;
   color: aliceblue;
   font-size: 1.1rem;
+}
+
+#group-number {
+  position: absolute;
+  color: #004d73;
+  left: 20%;
 }

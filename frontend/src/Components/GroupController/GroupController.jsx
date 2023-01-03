@@ -1,43 +1,40 @@
 //Styles
 import "./GroupController.css";
 //Custom Hooks
-import useAuth from "../../hooks/useAuth";
 import useGroups from "../../hooks/useGroups";
+//Hooks
+import { useState } from "react";
 
 const GroupController = ({ data }) => {
   //Custom Hooks Variables
-  const [user, token] = useAuth();
-  const { toggleGroupStatus } = useGroups();
-
-  //Functions
-  /**Handles click on group status toggle button
-   * @param booleanValue - current group status (Boolean)
-   */
-  function handleGroupStatusToggler(booleanValue) {
-    if (booleanValue) {
-      booleanValue = false;
-    } else {
-      booleanValue = true;
-    }
-    toggleGroupStatus(data.group.id, booleanValue);
-    window.location.reload();
-  }
+  const { patchGroupData } = useGroups();
+  //State Variables
+  const [status] = useState(data.group.is_active);
 
   return (
     <div className="groupcontroller-container">
       <button
         id="toggle-group-status-btn"
         onClick={() => {
-          handleGroupStatusToggler(data.group.is_active);
+          patchGroupData(data.group.id, { is_active: !status });
+          window.location.reload();
         }}
       >
-        {data.group.is_active ? (
+        {status ? (
           <span style={{ color: "red" }}>Close</span>
         ) : (
           <span style={{ color: "green" }}>Open</span>
         )}
       </button>
-      <button id="delete-group-btn">X</button>
+      <button
+        id="delete-group-btn"
+        onClick={() => {
+          patchGroupData(data.group.id, { is_active: false, is_deleted: true });
+          window.location.reload();
+        }}
+      >
+        X
+      </button>
     </div>
   );
 };

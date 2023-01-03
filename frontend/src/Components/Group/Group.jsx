@@ -12,7 +12,10 @@ const Group = ({ data }) => {
   return (
     <div className="group-container">
       <header>
-        <p id="group-date">{data.group.date}</p>
+        <p id="group-date">
+          <span id="group-number">{data.index + 1}.</span>
+          {data.group.date}
+        </p>
       </header>
       <section name="Group Top Info Section">
         <div className="group-status-container">
