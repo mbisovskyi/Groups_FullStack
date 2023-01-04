@@ -12,6 +12,7 @@ export const GroupsProvider = ({ children }) => {
   const [user, token] = useAuth();
   const [allGroups, setAllGroups] = useState([]);
 
+  //Fetch data after each render of the application
   useEffect(() => {
     getAllGroups();
   }, []);
@@ -26,6 +27,7 @@ export const GroupsProvider = ({ children }) => {
     });
   }
 
+  
   /**
    * Sends a GET request to receive all groups from the database.
    * @returns Promise
@@ -45,8 +47,7 @@ export const GroupsProvider = ({ children }) => {
     console.log(`From groups context: ${response.data.length} active groups`);
   }
 
-  /**
-   * Sends a PATCH request to update a group data with an object { } passed in through parameters
+  /**Sends a PATCH request to update a group data with an object { } passed in through parameters
    * @param {int} groupId - Group id to integrate in the url path.
    * @param {{}} object - object { } - type of Group
    * @note PATCH request allows to update just a single property
@@ -57,12 +58,45 @@ export const GroupsProvider = ({ children }) => {
     });
   }
 
+
+  /** Sends a POST request to add a new reservation with values passed in through parameters.
+   * @param {int} groupId - Group id to integrate in the url path.
+   * @param {string} phone - Phone number.
+   * @param {decimal} lambs - Quantity of lambs (default 0).
+   * @param {int} pigs - Quantity of pigs (default 0).
+   * @param {int} bread - Quantity of bread (default 0).
+   */
+  async function postNewReservation(
+    groupId,
+    phone,
+    lambs = 0,
+    pigs = 0,
+    bread = 0
+  ) {
+    let object = {
+      first_name: user.first_name,
+      last_name: user.last_name,
+      phone: phone,
+      bread_quantity: bread,
+      lambs_quantity: lambs,
+      pigs_quantity: pigs,
+    };
+    await axios.post(
+      `http://127.0.0.1:8000/api/rows/${groupId}/users/${user.id}/`,
+      object,
+      {
+        headers: { Authorization: "Bearer " + token },
+      }
+    );
+  }
+
   const contextData = {
     allGroups,
     newGroup,
     getAllGroups,
     getActiveGroups,
     patchGroupData,
+    postNewReservation,
   };
 
   return (

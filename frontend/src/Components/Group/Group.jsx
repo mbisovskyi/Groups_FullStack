@@ -4,6 +4,7 @@ import "./Group.css";
 import useAuth from "../../hooks/useAuth";
 //Components
 import GroupController from "../GroupController/GroupController";
+import AddReservation from "../AddReservation/AddReservation";
 
 const Group = ({ data }) => {
   //Custom Hooks Variables
@@ -37,7 +38,9 @@ const Group = ({ data }) => {
         </div>
         {user.is_owner ? <GroupController data={data} /> : null}
       </section>
-      <main name="Group Data Section">Group Data Here</main>
+      <main name="Group Data Section">
+        {!user.is_owner ? <AddReservation data={data} /> : null}
+      </main>
       <footer name="Group Footer">Footer</footer>
     </div>
   );
