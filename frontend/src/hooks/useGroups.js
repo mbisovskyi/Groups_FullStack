@@ -4,6 +4,7 @@ import GroupsContext from "../context/GroupsContext";
 const useGroups = () => {
   const {
     allGroups,
+    activeGroups,
     newGroup,
     getAllGroups,
     getActiveGroups,
@@ -12,6 +13,7 @@ const useGroups = () => {
   } = useContext(GroupsContext);
   return {
     allGroups,
+    activeGroups,
     newGroup,
     getAllGroups,
     getActiveGroups,

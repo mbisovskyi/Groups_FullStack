@@ -2,18 +2,30 @@
 import "./ListGroups.css";
 //Custom Hooks
 import useGroups from "../../hooks/useGroups";
+import useAuth from "../../hooks/useAuth";
 //Components
 import Group from "../Group/Group";
 
 const ListGroups = () => {
   //Custom Hooks Variables
-  const { allGroups } = useGroups(); // >>>>> All Groups are located here! <<<<<<<
+  const { allGroups, activeGroups } = useGroups();
+  const [user, token] = useAuth();
 
   return (
     <div className="listgroups-container">
-      {allGroups.map((group, index) => {
-        return <Group data={{ group, index }} key={index} />;
-      })}
+      {user.is_owner ? (
+        <div>
+          {allGroups.map((group, index) => {
+            return <Group data={{ group, index }} key={index} />;
+          })}
+        </div>
+      ) : (
+        <div>
+          {activeGroups.map((group, index) => {
+            return <Group data={{ group, index }} key={index} />;
+          })}
+        </div>
+      )}
     </div>
   );
 };

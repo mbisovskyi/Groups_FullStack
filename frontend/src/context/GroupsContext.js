@@ -11,10 +11,12 @@ export const GroupsProvider = ({ children }) => {
   //State variables
   const [user, token] = useAuth();
   const [allGroups, setAllGroups] = useState([]);
+  const [activeGroups, setActiveGroups] = useState([]);
 
   //Fetch data after each render of the application
   useEffect(() => {
     getAllGroups();
+    getActiveGroups();
   }, []);
 
   /**
@@ -27,7 +29,6 @@ export const GroupsProvider = ({ children }) => {
     });
   }
 
-  
   /**
    * Sends a GET request to receive all groups from the database.
    * @returns Promise
@@ -40,11 +41,11 @@ export const GroupsProvider = ({ children }) => {
     setAllGroups(response.data);
   }
 
-  async function getActiveGroups(token) {
+  async function getActiveGroups() {
     let response = await axios.get("http://127.0.0.1:8000/api/groups/active/", {
       headers: { Authorization: "Bearer " + token },
     });
-    console.log(`From groups context: ${response.data.length} active groups`);
+    setActiveGroups(response.data);
   }
 
   /**Sends a PATCH request to update a group data with an object { } passed in through parameters
@@ -57,7 +58,6 @@ export const GroupsProvider = ({ children }) => {
       headers: { Authorization: "Bearer " + token },
     });
   }
-
 
   /** Sends a POST request to add a new reservation with values passed in through parameters.
    * @param {int} groupId - Group id to integrate in the url path.
@@ -92,6 +92,7 @@ export const GroupsProvider = ({ children }) => {
 
   const contextData = {
     allGroups,
+    activeGroups,
     newGroup,
     getAllGroups,
     getActiveGroups,

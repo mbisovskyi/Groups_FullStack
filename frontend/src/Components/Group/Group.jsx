@@ -15,9 +15,11 @@ const Group = ({ data }) => {
   const [user, token] = useAuth();
   //State Variables
   const [reservations, setReservations] = useState([]);
+  const [userReservations, setUserReservations] = useState([]);
 
   useEffect(() => {
     getGroupReservations();
+    getUserReservations();
   }, []);
 
   //Sends a GET request to get all the reservations belong to its group and catches it in the state variable "reservations".
@@ -27,6 +29,14 @@ const Group = ({ data }) => {
       { headers: { Authorization: "Bearer " + token } }
     );
     setReservations(response.data);
+  }
+
+  async function getUserReservations() {
+    const response = await axios.get(
+      `http://127.0.0.1:8000/api/rows/${data.group.id}/users/${user.id}/`,
+      { headers: { Authorization: "Bearer " + token } }
+    );
+    setUserReservations(response.data);
   }
 
   return (
@@ -58,11 +68,13 @@ const Group = ({ data }) => {
         {user.is_owner ? <GroupController data={data} /> : null}
       </section>
       <main name="Group Data Section">
-        {!user.is_owner ? <AddReservation data={data} /> : null}
-        {user.is_owner ? (
-          <ListReservations reservations={reservations} />
+        {!user.is_owner ? (
+          <div>
+            <AddReservation data={data} />
+            <ListReservations reservations={userReservations} />
+          </div>
         ) : (
-          <ListReservations />
+          <ListReservations reservations={reservations} />
         )}
       </main>
       <footer name="Group Footer">Footer</footer>
