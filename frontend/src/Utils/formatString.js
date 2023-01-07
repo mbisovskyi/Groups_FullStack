@@ -59,9 +59,9 @@ function formatOfCellPhoneNumber(string) {
   }
 }
 
-const FormattingPhoneNum = {
+const formatString = {
   digitsOnlyString,
   formatOfCellPhoneNumber,
 };
 
-export default FormattingPhoneNum;
+export default formatString;

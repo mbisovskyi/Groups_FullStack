@@ -5,7 +5,7 @@ import useGroups from "../../hooks/useGroups";
 //Hooks
 import { useState } from "react";
 //Utils
-import FormattingPhoneNum from "../../utils/formatString";
+import formatString from "../../utils/formatString";
 
 const AddReservation = ({ data }) => {
   //Custom Hooks Variables
@@ -18,7 +18,7 @@ const AddReservation = ({ data }) => {
 
   // Sends a POST request to add a new reservation to the database
   function handleMakeReservationClick() {
-    let thisPhoneNum = FormattingPhoneNum.formatOfCellPhoneNumber(phoneNum);
+    let thisPhoneNum = formatString.formatOfCellPhoneNumber(phoneNum);
     postNewReservation(
       data.group.id,
       thisPhoneNum,
