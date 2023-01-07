@@ -1,131 +1,115 @@
 //Styles
 import "./Group.css";
-//Hooks
-import useAuth from "../../hooks/useAuth";
-import { useState, useEffect } from "react";
 //Utils
 import axios from "axios";
+//Custom Hooks
+import useAuth from "../../hooks/useAuth";
 //Components
-import GroupRow from "../GroupRow/GroupRow";
+import GroupController from "../GroupController/GroupController";
+import AddReservation from "../AddReservation/AddReservation";
+import ListReservations from "../ListReservations/ListReservations";
+import { useState, useEffect } from "react";
 
-const Group = ({ group }) => {
+const Group = ({ data }) => {
+  //Custom Hooks Variables
   const [user, token] = useAuth();
-  const [toggleGroupStatusBtnText, setToggleGroupStatusBtnText] = useState("");
-  const [groupStatusText, setGroupStatusText] = useState("");
-  const [groupLength, setGroupLength] = useState(0);
+  //State Variables
+  const [reservations, setReservations] = useState([]);
+  const [userReservations, setUserReservations] = useState([]);
+  const [groupTime, setGroupTime] = useState("");
 
   useEffect(() => {
-    checkActiveGroupStatus();
+    getGroupReservations();
+    getUserReservations();
+    setGroupTime(civilGroupTime(data.group.start_time, data.group.end_time));
   }, []);
 
-  async function removeGroup() {
-    let body = {
-      is_deleted: true,
-      is_active: false,
-    };
-    await axios.patch(`http://127.0.0.1:8000/api/groups/${group.id}`, body, {
-      headers: { Authorization: "Bearer " + token },
-    });
-    window.location.reload();
+  //Sends a GET request to get all the reservations belong to its group and catches it in the state variable "reservations".
+  async function getGroupReservations() {
+    const response = await axios.get(
+      `http://127.0.0.1:8000/api/rows/${data.group.id}/`,
+      { headers: { Authorization: "Bearer " + token } }
+    );
+    setReservations(response.data);
   }
 
-  async function toggleGroupStatus() {
-    let activeBool = group.is_active;
-    if (activeBool === true) {
-      activeBool = false;
-      setToggleGroupStatusBtnText("Activate");
-    } else {
-      activeBool = true;
-      setToggleGroupStatusBtnText("Deactivate");
-    }
-    let body = {
-      is_active: activeBool,
-    };
-    await axios.patch(`http://127.0.0.1:8000/api/groups/${group.id}`, body, {
-      headers: { Authorization: "Bearer " + token },
-    });
-    window.location.reload();
+  //Sends GET request to get all user's reservations belong to its group and catches it it the state cariable "userReservations".
+  async function getUserReservations() {
+    const response = await axios.get(
+      `http://127.0.0.1:8000/api/rows/${data.group.id}/users/${user.id}/`,
+      { headers: { Authorization: "Bearer " + token } }
+    );
+    setUserReservations(response.data);
   }
 
-  function checkActiveGroupStatus() {
-    if (group.is_active) {
-      setGroupStatusText("Active");
-      setToggleGroupStatusBtnText("Deactivate");
-    } else {
-      setGroupStatusText("Closed");
-      setToggleGroupStatusBtnText("Activate");
+  /**
+   *Takes Start Time and End Time strings to combine them and return a Civil Time string
+   * @param {string} startTime - string value of a time;
+   * @param {string} endTime - string value of a time;
+   * @returns {string} Formatted time string from 24 Hours Time to Civil Time.
+   */
+  function civilGroupTime(startTime, endTime) {
+    let [startHours, startMinutes] = startTime.split(":");
+    let [endHours, endMinutes] = endTime.split(":");
+    let startTimeExtension = " am";
+    let endTimeExtension = " am";
+
+    //Parsing to Integer to be able to compare to a number
+    startHours = parseInt(startHours);
+    endHours = parseInt(endHours);
+
+    //Conditional statement: if Hour is after noon - assigns extension "pm" and decrements 12 hours.
+    if (startHours > 12) {
+      startHours -= 12;
+      startTimeExtension = " pm";
     }
+    if (endHours > 12) {
+      endHours -= 12;
+      endTimeExtension = " pm";
+    }
+
+    //Interpolating values into a string and returning it from a function
+    let formattedTimeString = `${startHours}:${startMinutes}${startTimeExtension} - ${endHours}:${endMinutes}${endTimeExtension}`;
+    return formattedTimeString;
   }
 
   return (
-    <div className="group-container" style={{ marginTop: "1rem" }}>
-      {group ? (
-        <div>
-          {user.is_owner ? (
-            <div>
-              <div>
-                <p className="mb-1rem group-top-container">
-                  {group.is_active ? (
-                    <span className="status-green text-white inline-block">
-                      {groupStatusText}
-                    </span>
-                  ) : (
-                    <span className="status-red text-white inline-block">
-                      {groupStatusText}
-                    </span>
-                  )}
-                  <span className="group-date block">{group.date}</span>
-                  <span className="inline-block">
-                    {groupLength} / {group.max_rows}
-                  </span>
-                </p>
-              </div>
-              <div className="group-info-container">
-                <h2>
-                  {group.start_time} - {group.end_time}
-                </h2>
-                <div className="group-cotrollers">
-                  <div className="left-controller">
-                    <button
-                      className="toggle-group-status"
-                      onClick={toggleActiveGroupStatus}
-                    >
-                      {toggleGroupStatusBtnText}
-                    </button>
-                  </div>
-                  <div className="right-controller">
-                    <button onClick={removeGroup}>Remove</button>
-                  </div>
-                </div>
-              </div>
-              <GroupRow groupId={group.id} setGroupLength={setGroupLength} />
-            </div>
+    <div className="group-container">
+      <header>
+        <p id="group-date">
+          <span id="group-number">{data.index + 1}.</span>
+          {data.group.date}
+        </p>
+      </header>
+      <section name="Group Top Info Section">
+        <div className="group-status-container">
+          {data.group.is_active ? (
+            <span style={{ color: "green" }}>Opened</span>
           ) : (
-            <div>
-              {group.is_active ? (
-                <div className="group-info-container">
-                  <div>
-                    <p className="mb-1rem group-top-container">
-                      <span className="status-green text-white inline-block">
-                        {groupStatusText}
-                      </span>
-                      <span className="group-date block">{group.date}</span>
-                      <span className="inline-block">
-                        {groupLength} / {group.max_rows}
-                      </span>
-                    </p>
-                  </div>
-                  <h2>
-                    {group.start_time} - {group.end_time}
-                  </h2>
-                </div>
-              ) : (
-                <p>No groups found!</p>
-              )}
-            </div>
+            <span style={{ color: "red" }}>Closed</span>
           )}
         </div>
-      ) : null}
+        <div className="group-time-container">
+          <span>{groupTime}</span>
+        </div>
+        <div className="peaces-counter-container">
+          <span>
+            {data.group.current_value} / {data.group.max_value}
+          </span>
+        </div>
+        {user.is_owner ? <GroupController data={data} /> : null}
+      </section>
+      <main name="Group Data Section">
+        {!user.is_owner ? (
+          <div>
+            <AddReservation data={data} />
+            <ListReservations reservations={userReservations} />
+          </div>
+        ) : (
+          <ListReservations reservations={reservations} />
+        )}
+      </main>
+      <footer name="Group Footer">Footer</footer>
     </div>
   );
 };

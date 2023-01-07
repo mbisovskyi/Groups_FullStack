@@ -3,22 +3,22 @@ import GroupsContext from "../context/GroupsContext";
 
 const useGroups = () => {
   const {
-    groups,
-    usersGroups,
-    getGroupsData,
+    allGroups,
+    activeGroups,
+    newGroup,
+    getAllGroups,
     getActiveGroups,
-    updateGroupData,
-    removeGroup,
-    toggleGroupStatus,
+    patchGroupData,
+    postNewReservation,
   } = useContext(GroupsContext);
   return {
-    groups,
-    usersGroups,
-    getGroupsData,
+    allGroups,
+    activeGroups,
+    newGroup,
+    getAllGroups,
     getActiveGroups,
-    updateGroupData,
-    removeGroup,
-    toggleGroupStatus,
+    patchGroupData,
+    postNewReservation,
   };
 };
 

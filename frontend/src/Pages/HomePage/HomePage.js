@@ -1,58 +1,8 @@
 //Styles
 import "./HomePage.css";
-//Hooks
-import useGroups from "../../hooks/useGroups";
-import useAuth from "../../hooks/useAuth";
-import { useEffect } from "react";
-//Components
-import Group from "../../components/GroupsComponents/Group/Group";
-import CreateGroup from "../../components/CreateGroup/CreateGroup";
 
 const HomePage = () => {
-  const [user, token] = useAuth();
-  const { groups, usersGroups, getGroupsData, getActiveGroups } = useGroups();
-
-  useEffect(() => {
-    getGroupsData(token);
-    if (!user.is_owner) {
-      getActiveGroups(token);
-    }
-  }, []);
-
-  return (
-    <div className="homepage-container">
-      {user.is_owner ? (
-        <div>
-          <CreateGroup />
-          {groups.map((group, index) => {
-            return (
-              <div className="group-date-container" key={index}>
-                <h2>{group.date}</h2>
-                <Group group={group} />
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div>
-          {usersGroups.length > 0 ? (
-            <div name="all active groups">
-              {usersGroups.map((group, index) => {
-                return (
-                  <div className="group-date-container" key={index}>
-                    <h2>{group.date}</h2>
-                    <Group group={group} />
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <p>No active groups</p>
-          )}
-        </div>
-      )}
-    </div>
-  );
+  return <div className="homepage-container">Home Page</div>;
 };
 
 export default HomePage;

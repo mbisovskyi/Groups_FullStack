@@ -10,10 +10,21 @@
   margin: auto;
   text-align: center;
   padding: 2rem 0;
+  color: #004d73;
 }
 
 .form label,
 input {
   margin: 0.5rem 0;
   width: 100%;
+}
+
+.form button {
+  width: 40%;
+  margin: auto;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(41, 206, 20, 0.9);
+  color: aliceblue;
 }

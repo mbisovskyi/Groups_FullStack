@@ -1,81 +1,48 @@
 .group-container {
-  width: 25rem;
-  margin-bottom: 2rem;
-  padding: 1rem;
-  border: 3px solid rgba(40, 99, 143, 0.6);
-  border-radius: 10px;
-}
-
-.group-container h2,
-button {
-  text-align: center;
-}
-
-.group-date {
-  padding: 0.1rem 0.5rem;
-  background-color: rgba(40, 99, 143, 0.3);
-  color: #28638f;
+  margin: 2rem 0;
   border-radius: 3px;
+  overflow: hidden;
 }
 
-.group-info-container h2 {
-  color: #004b75;
+.group-container header {
+  padding: 0.2rem 0;
+  background: linear-gradient(0.3turn, white, white, #004d73cc, white, white);
 }
 
-.group-top-container {
+.group-container section {
+  padding: 0.5rem 15%;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-evenly;
 }
 
-.group-cotrollers {
-  margin: 0.3rem auto 0;
-  display: flex;
-  justify-content: space-around;
+.group-container main {
+  padding: 0.5rem;
+  margin: 0 20%;
+  background: rgba(0, 77, 115, 0.1);
+  border-bottom: 1px solid #004d73cc;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px #004d73;
 }
 
-.left-controller {
-  text-align: center;
-  width: 40%;
-  padding: 0.2rem 1rem;
-  background-color: #004b75;
-  border-top-left-radius: 10px;
+.group-container footer {
+  width: 58%;
+  padding: 0.5rem;
+  margin: auto;
+  height: 30px;
+  background-color: #004d7350;
   border-bottom-left-radius: 10px;
-}
-
-.right-controller {
-  text-align: center;
-  width: 40%;
-  padding: 0.2rem 1rem;
-  background-color: #004b75;
-  border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
-.mb-1rem {
-  margin-bottom: 1rem;
+#group-date {
+  position: relative;
+  text-align: center;
+  color: aliceblue;
+  font-size: 1.1rem;
 }
 
-.mr-1rem {
-  margin-right: 15%;
-}
-
-.text-white {
-  padding: 0.3rem 1rem;
-  color: white;
-  border-radius: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1rem;
-}
-
-.status-red {
-  background-color: rgba(231, 34, 34, 0.95);
-}
-
-.status-green {
-  background-color: rgba(73, 209, 73, 1);
-}
-
-.inline-block {
-  display: inline-block;
+#group-number {
+  position: absolute;
+  color: #004d73;
+  left: 20%;
 }

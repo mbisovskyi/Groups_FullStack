@@ -1,0 +1,19 @@
+.addreservation-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.addreservation-container input {
+  margin-left: 0.5rem;
+}
+
+.flex-center-evenly {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#make-reservation-btn {
+  color: red;
+}

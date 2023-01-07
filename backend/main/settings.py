@@ -153,6 +153,10 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=20),
 }
 
+# Suppress broken pipe errors
+from django.core.servers.basehttp import WSGIServer
+WSGIServer.handle_error = lambda *args, **kwargs: None
+
 try:
     from main.local_settings import *
 except ImportError:

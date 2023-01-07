@@ -1,0 +1,56 @@
+.newgroup-container {
+  margin: 1rem 0;
+}
+
+.hidden {
+  display: none;
+}
+
+#new-group-btn {
+  display: block;
+  margin: auto;
+  border: none;
+  border-radius: 5px;
+  padding: 0.3rem 0.5rem;
+  background-color: #004d73cc;
+  color: aliceblue;
+}
+
+.modal-form-container {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  background-color: white;
+  height: 86vh;
+  padding: 0 38%;
+  color: #004d73;
+}
+
+.modal-form-container input {
+  padding: 0.2rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(0, 77, 115, 0.2);
+  color: #004d73;
+}
+
+.modal-form-container button {
+  display: block;
+  margin: auto;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid #004d73;
+  border-radius: 5px;
+  background-color: none;
+  color: #004d73;
+}
+
+.modal-form-container button:hover {
+  transition: all 0.2s;
+  border-color: white;
+  background-color: #004d73;
+  color: white;
+}
+
+.modal-form-container ::placeholder {
+  color: #004d7373;
+}

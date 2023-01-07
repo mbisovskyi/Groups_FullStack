@@ -6,9 +6,9 @@ import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import GroupsPage from "./pages/GroupsPage/GroupsPage";
+import ReservationsPage from "./pages/ReservationsPage/ReservationsPage";
 
-// Component Imports
+//Components
 import Navbar from "./components/Navbar/Navbar";
 
 // Util Imports
@@ -27,7 +27,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/groups" element={<GroupsPage />} />
+        <Route path="/reservations" element={<ReservationsPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>

@@ -1,0 +1,16 @@
+.displayreservation-container {
+  padding: 0.5rem 1rem;
+  background-color: rgb(243, 243, 243);
+  border: 2px solid rgba(0, 77, 115, 0.7);
+  border-radius: 4px;
+  color: rgba(0, 77, 115, 1);
+  /* text-shadow: 2px 2px 3px rgba(0, 77, 115, 1); */
+  margin: 0.3rem 0;
+}
+
+.products-reservation-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+  margin: 0.5rem auto 0;
+}
