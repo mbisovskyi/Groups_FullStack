@@ -3,7 +3,9 @@ import "./AddReservation.css";
 //Custom Hooks
 import useGroups from "../../hooks/useGroups";
 //Hooks
-import { useState, useEffect } from "react";
+import { useState } from "react";
+//Utils
+import FormattingPhoneNum from "../../utils/formatString";
 
 const AddReservation = ({ data }) => {
   //Custom Hooks Variables
@@ -14,13 +16,12 @@ const AddReservation = ({ data }) => {
   const [pigsQuantity, setPigsQuantity] = useState(0);
   const [breadQuantity, setBreadQuantity] = useState(0);
 
-  //   useEffect(() => {
-  //   }, []);
-
+  // Sends a POST request to add a new reservation to the database
   function handleMakeReservationClick() {
+    let thisPhoneNum = FormattingPhoneNum.formatOfCellPhoneNumber(phoneNum);
     postNewReservation(
       data.group.id,
-      phoneNum,
+      thisPhoneNum,
       lambQuantity,
       pigsQuantity,
       breadQuantity
