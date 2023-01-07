@@ -16,10 +16,12 @@ const Group = ({ data }) => {
   //State Variables
   const [reservations, setReservations] = useState([]);
   const [userReservations, setUserReservations] = useState([]);
+  const [groupTime, setGroupTime] = useState("");
 
   useEffect(() => {
     getGroupReservations();
     getUserReservations();
+    setGroupTime(civilGroupTime(data.group.start_time, data.group.end_time));
   }, []);
 
   //Sends a GET request to get all the reservations belong to its group and catches it in the state variable "reservations".
@@ -31,12 +33,44 @@ const Group = ({ data }) => {
     setReservations(response.data);
   }
 
+  //Sends GET request to get all user's reservations belong to its group and catches it it the state cariable "userReservations".
   async function getUserReservations() {
     const response = await axios.get(
       `http://127.0.0.1:8000/api/rows/${data.group.id}/users/${user.id}/`,
       { headers: { Authorization: "Bearer " + token } }
     );
     setUserReservations(response.data);
+  }
+
+  /**
+   *Takes Start Time and End Time strings to combine them and return a Civil Time string
+   * @param {string} startTime - string value of a time;
+   * @param {string} endTime - string value of a time;
+   * @returns {string} Formatted time string from 24 Hours Time to Civil Time.
+   */
+  function civilGroupTime(startTime, endTime) {
+    let [startHours, startMinutes] = startTime.split(":");
+    let [endHours, endMinutes] = endTime.split(":");
+    let startTimeExtension = " am";
+    let endTimeExtension = " am";
+
+    //Parsing to Integer to be able to compare to a number
+    startHours = parseInt(startHours);
+    endHours = parseInt(endHours);
+
+    //Conditional statement: if Hour is after noon - assigns extension "pm" and decrements 12 hours.
+    if (startHours > 12) {
+      startHours -= 12;
+      startTimeExtension = " pm";
+    }
+    if (endHours > 12) {
+      endHours -= 12;
+      endTimeExtension = " pm";
+    }
+
+    //Interpolating values into a string and returning it from a function
+    let formattedTimeString = `${startHours}:${startMinutes}${startTimeExtension} - ${endHours}:${endMinutes}${endTimeExtension}`;
+    return formattedTimeString;
   }
 
   return (
@@ -56,9 +90,7 @@ const Group = ({ data }) => {
           )}
         </div>
         <div className="group-time-container">
-          <span>
-            {data.group.start_time} - {data.group.end_time}
-          </span>
+          <span>{groupTime}</span>
         </div>
         <div className="peaces-counter-container">
           <span>
