@@ -21,9 +21,17 @@ def user_rows(request, group_id, user_id):
         rows = Row.objects.filter(group_id = group_id, user_id = user_id)
         serializer = RowSerializer(rows, many=True)
         return Response(serializer.data)
-    if request.method == 'POST':
+    elif request.method == 'POST':
         serializer = RowSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save(group_id = group_id, user_id = user_id)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_row(request, row_id):
+    if request.method == 'DELETE':
+        row = Row.objects.get(id = row_id)
+        row.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
