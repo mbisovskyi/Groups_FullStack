@@ -109,7 +109,7 @@ const Group = ({ data }) => {
           <ListReservations reservations={reservations} />
         )}
       </main>
-      <footer name="Group Footer">Footer</footer>
+      {user.is_owner ? <footer name="Group Footer">Footer</footer> : null}
     </div>
   );
 };

@@ -18,15 +18,21 @@ const AddReservation = ({ data }) => {
 
   // Sends a POST request to add a new reservation to the database
   function handleMakeReservationClick() {
-    let thisPhoneNum = formatString.formatOfCellPhoneNumber(phoneNum);
-    postNewReservation(
-      data.group.id,
-      thisPhoneNum,
-      lambQuantity,
-      pigsQuantity,
-      breadQuantity
-    );
-    window.location.reload();
+    if (lambQuantity === 0 && pigsQuantity === 0 && breadQuantity === 0) {
+      alert(
+        "List of products is empty. To make reservation - please add product!"
+      );
+    } else {
+      let thisPhoneNum = formatString.formatOfCellPhoneNumber(phoneNum);
+      postNewReservation(
+        data.group.id,
+        thisPhoneNum,
+        lambQuantity,
+        pigsQuantity,
+        breadQuantity
+      );
+      window.location.reload();
+    }
   }
 
   return (

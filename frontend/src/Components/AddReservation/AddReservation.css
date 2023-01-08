@@ -15,5 +15,19 @@
 }
 
 #make-reservation-btn {
-  color: red;
+  padding: 0.1rem 0.3rem;
+  border: 1px solid white;
+  border-radius: 5px;
+  background: rgba(0, 100, 0, 0.6);
+  color: white;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#make-reservation-btn:hover {
+  transition: all 0.3s;
+  transition: transform 0.1s;
+  color: darkgreen;
+  background: none;
+  border-color: darkgreen;
+  transform: scale(1.03);
 }

@@ -4,7 +4,6 @@
   border: 2px solid rgba(0, 77, 115, 0.7);
   border-radius: 4px;
   color: rgba(0, 77, 115, 1);
-  /* text-shadow: 2px 2px 3px rgba(0, 77, 115, 1); */
   margin: 0.3rem 0;
 }
 
@@ -13,4 +12,36 @@
   justify-content: space-evenly;
   width: 50%;
   margin: 0.5rem auto 0;
+}
+
+.reservation-top-info-container {
+  position: relative;
+}
+
+.reservation-controllers {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 5%;
+  top: 50%;
+}
+
+#removeReservationBtn {
+  font-size: larger;
+  border: none;
+  color: rgba(0, 77, 115, 1);
+  margin-left: 1rem;
+}
+
+#removeReservationBtn:hover {
+  transition: color 0.3s, transform 0.1s;
+  color: red;
+  transform: scale(1.2);
+}
+
+#reservation-update-btn:hover {
+  transition: fill 0.3s, transform 0.1s;
+  cursor: pointer;
+  fill: green;
+  transform: scale(1.2);
 }
